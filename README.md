@@ -44,3 +44,34 @@ This dataset contains measurements of appliance energy consumption along with en
 
 ## Data Location
 The dataset is located in the `data` folder of this project.
+
+
+[//]: # (# Anomaly Detection in IoT Energy Data  )
+
+[//]: # (## 🎯 Goal  )
+
+[//]: # (Detect abnormal energy consumption patterns using [UCI Appliances Energy Dataset]&#40;https://archive.ics.uci.edu/dataset/374/appliances+energy+prediction&#41;.  )
+
+[//]: # ()
+
+[//]: # (## 🛠️ Methodology  )
+
+[//]: # (- Data preprocessing &#40;handling missing values, normalization&#41;.  )
+
+[//]: # (- Exploratory Data Analysis &#40;EDA&#41; to visualize trends.  )
+
+[//]: # (- **Isolation Forest** for unsupervised anomaly detection.  )
+
+[//]: # ()
+
+[//]: # (## 📊 Results  )
+
+[//]: # (![Anomalies Plot]&#40;images/anomalies_plot.png&#41;  )
+
+[//]: # ()
+
+[//]: # (## 🚀 Future Work  )
+
+[//]: # (- Real-time detection with `River`.  )
+
+[//]: # (- LSTM Autoencoder for temporal patterns.  )
