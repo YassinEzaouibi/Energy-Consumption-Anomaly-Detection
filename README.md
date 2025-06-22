@@ -1,157 +1,6 @@
-[//]: # (# Energy Consumption Analysis Dataset)
-
-[//]: # (## Yassin Ezaouibi & Hamza El Moukadam & Mohamed Essalhi)
-
-[//]: # ()
-
-[//]: # (## Overview)
-
-[//]: # (This dataset contains measurements of appliance energy consumption along with environmental conditions collected at 10-minute intervals. The data can be used for energy consumption analysis and prediction.)
-
-[//]: # ()
-
-[//]: # (## Data Description)
-
-[//]: # ()
-
-[//]: # (### Time Period)
-
-[//]: # (- Data collected in 10-minute intervals )
-
-[//]: # (- Format: YYYY-MM-DD HH:MM:SS)
-
-[//]: # ()
-
-[//]: # (### Features)
-
-[//]: # (1. **Energy Consumption**)
-
-[//]: # (   - Appliances energy consumption in Wh)
-
-[//]: # (   - Light energy consumption in Wh)
-
-[//]: # ()
-
-[//]: # (2. **Temperature Readings**)
-
-[//]: # (   - T1 to T9: Temperature measurements from different sensors)
-
-[//]: # (   - T_out: Outdoor temperature)
-
-[//]: # ()
-
-[//]: # (3. **Humidity Measurements**)
-
-[//]: # (   - RH_1 to RH_9: Relative humidity from different sensors )
-
-[//]: # (   - RH_out: Outdoor relative humidity)
-
-[//]: # ()
-
-[//]: # (4. **Weather Conditions**)
-
-[//]: # (   - Press_mm_hg: Pressure in mm Hg)
-
-[//]: # (   - Windspeed)
-
-[//]: # (   - Visibility )
-
-[//]: # (   - Tdewpoint: Dew point temperature)
-
-[//]: # ()
-
-[//]: # (5. **Additional Variables**)
-
-[//]: # (   - rv1, rv2: Random variables)
-
-[//]: # ()
-
-[//]: # (## File Format)
-
-[//]: # (- CSV &#40;Comma-Separated Values&#41;)
-
-[//]: # (- Each row represents one time interval)
-
-[//]: # (- Missing values are marked accordingly)
-
-[//]: # ()
-
-[//]: # (## Potential Uses)
-
-[//]: # (- Energy consumption prediction)
-
-[//]: # (- Environmental analysis)
-
-[//]: # (- Building energy efficiency studies)
-
-[//]: # (- Time series analysis)
-
-[//]: # ()
-
-[//]: # (## Data Location)
-
-[//]: # (The dataset is located in the `data` folder of this project.)
-
-[//]: # ()
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;# Anomaly Detection in IoT Energy Data  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;## 🎯 Goal  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;Detect abnormal energy consumption patterns using [UCI Appliances Energy Dataset]&#40;https://archive.ics.uci.edu/dataset/374/appliances+energy+prediction&#41;.  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;&#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;## 🛠️ Methodology  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;- Data preprocessing &#40;handling missing values, normalization&#41;.  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;- Exploratory Data Analysis &#40;EDA&#41; to visualize trends.  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;- **Isolation Forest** for unsupervised anomaly detection.  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;&#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;## 📊 Results  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;![Anomalies Plot]&#40;images/anomalies_plot.png&#41;  &#41;)
-[//]: # ()
-
-[//]: # ([//]: # &#40;&#41;)
-[//]: # ()
-
-[//]: # ([//]: # &#40;## 🚀 Future Work  &#41;)
-[//]: # ()
-
-[//]: # ([//]: # &#40;- Real-time detection with `River`.  &#41;)
-
-[//]: # ()
-
-[//]: # ([//]: # &#40;- LSTM Autoencoder for temporal patterns.  &#41;)
-
 # Energy Consumption Anomaly Detection
+
+#### This project developed by `Yassin Ezaouibi & Hamza El Moukadam & Mohamed Essalhi`
 
 ## Overview
 
@@ -261,15 +110,15 @@ Example of LSTM Autoencoder anomaly detection:
 
 ## Project Structure
 
-├── data/
-│ └── processed_data.csv # Preprocessed energy consumption dataset
-├── images/
-│ └── *.png # Generated plots and visualizations
-├── notebooks/
-│ └── ipynb # Main Jupyter Notebook for anomaly detection
-├── scripts/
-│ └── app.py # Streamlit application for interactive visualization
-├── requirements.txt # Project dependencies
+├── data \
+│ └── processed_data.csv \
+├── images \
+│ └── *.png \
+├── notebooks \
+│ └── ipynb \
+├── scripts \
+│ └── app.py # Streamlit application for interactive visualization \
+├── requirements.txt # Project dependencies \
 └── README.md # Project overview and documentation
 
 ## How to Run
@@ -313,7 +162,7 @@ The project dependencies are listed in `requirements.txt`:
 * `numpy~=2.1.1`
 * `scikit-learn~=1.5.1`
 * `statsmodels~=0.14.4`
-* `streamlit~=1.45.1` (if using `app.py`)
+* `streamlit~=1.45.1`
 * `tensorflow~=2.19.0`
 
 ## 🚀 Future Work
