@@ -1,3 +1,4 @@
+
 # Energy Consumption Anomaly Detection
 
 #### This project developed by `Yassin Ezaouibi & Hamza El Moukadam & Mohamed Essalhi`
@@ -5,16 +6,16 @@
 ## Overview
 
 This project focuses on detecting unusual energy consumption patterns using a household energy dataset. By leveraging
-machine learning and deep learning techniques, the aim is to identify anomalies that could indicate equipment
-malfunctions, inefficient usage, or other significant events.
+multiple machine learning and deep learning techniques, we aim to identify anomalies that could indicate equipment
+malfunctions, inefficient usage, or other significant events through comprehensive comparative analysis.
 
 ## 🎯 Goal
 
-The primary objective is to build robust anomaly detection models capable of identifying abnormal energy consumption
-patterns in time-series data. This enables proactive insights into potential issues and aids in energy efficiency
-analysis.
+The primary objective is to build and compare multiple robust anomaly detection models capable of identifying abnormal
+energy consumption patterns in time-series data. This enables proactive insights into potential issues and aids in
+energy efficiency analysis by providing different perspectives on anomaly detection.
 
-## Dataset
+## 📊 Dataset
 
 ### Source
 
@@ -30,25 +31,25 @@ provides detailed measurements of appliance energy consumption alongside environ
 ### Features
 
 1. **Energy Consumption**:
-    * `Appliances`: Energy consumption of major appliances in Wh.
-    * `lights`: Energy consumption of lights in Wh.
+   * `Appliances`: Energy consumption of major appliances in Wh.
+   * `lights`: Energy consumption of lights in Wh.
 
 2. **Temperature Readings**:
-    * `T1` to `T9`: Temperature measurements from various indoor sensors.
-    * `T_out`: Outdoor temperature.
+   * `T1` to `T9`: Temperature measurements from various indoor sensors.
+   * `T_out`: Outdoor temperature.
 
 3. **Humidity Measurements**:
-    * `RH_1` to `RH_9`: Relative humidity from various indoor sensors.
-    * `RH_out`: Outdoor relative humidity.
+   * `RH_1` to `RH_9`: Relative humidity from various indoor sensors.
+   * `RH_out`: Outdoor relative humidity.
 
 4. **Weather Conditions**:
-    * `Press_mm_hg`: Pressure in mm Hg.
-    * `Windspeed`: Wind speed.
-    * `Visibility`: Visibility.
-    * `Tdewpoint`: Dew point temperature.
+   * `Press_mm_hg`: Pressure in mm Hg.
+   * `Windspeed`: Wind speed.
+   * `Visibility`: Visibility.
+   * `Tdewpoint`: Dew point temperature.
 
 5. **Additional Variables**:
-    * `rv1`, `rv2`: Random variables (used for testing purposes).
+   * `rv1`, `rv2`: Random variables (used for testing purposes).
 
 ### File Format
 
@@ -60,120 +61,261 @@ provides detailed measurements of appliance energy consumption alongside environ
 
 The dataset is expected to be located in the `data/processed_data.csv` file within this project structure.
 
-## 🛠️ Methodology
+## 🔬 Methodology
 
-The anomaly detection process involves several key steps:
+This project implements **three distinct anomaly detection approaches**, each with its own dedicated notebook for
+focused analysis and comparison:
 
-1. **Data Preprocessing**:
-    * Loading and parsing time-series data.
-    * Handling missing values (e.g., using `dropna()`).
-    * Scaling numerical features using `MinMaxScaler` to prepare data for distance-based models and neural networks.
+### 1. **Statistical Approach: Z-Score Method**
 
-2. **Exploratory Data Analysis (EDA)**:
-    * Initial visualization of energy consumption trends over time.
-    * Analysis of feature distributions to understand data characteristics.
+**Notebook**: `notebooks/appliances_anomaly_detection_zscore.ipynb`
 
-3. **Unsupervised Anomaly Detection Models**:
-    * **Isolation Forest**: An ensemble tree-based model used for isolating anomalies. It works by randomly selecting a
-      feature and then randomly selecting a split value between the maximum and minimum values of the selected feature.
-      Repeatedly, this partitioning effectively isolates anomalies closer to the root of the tree.
-    * **LSTM Autoencoder**: A deep learning model that learns a compressed representation of normal time-series
-      patterns. Anomalies are identified by high reconstruction errors, where the autoencoder struggles to reconstruct
-      unusual sequences.
+- **Technique**: Statistical outlier detection using Z-score analysis
+- **Threshold**: Configurable standard deviation multiplier (default: 3σ)
+- **Advantages**: Simple, interpretable, computationally efficient
+- **Best for**: Detecting extreme outliers in energy consumption patterns
 
-4. **In-depth Anomaly Analysis**:
-    * Quantification of detected anomalies (count and percentage).
-    * Temporal analysis of anomalies (hourly and daily patterns).
-    * Comparison of feature distributions between normal and anomalous data points to understand characteristics of
-      anomalous behavior.
-    * **K-Means Clustering on Anomalies**: Applying clustering to the detected anomalies to identify distinct types or
-      groups of anomalous events, providing further actionable insights.
+### 2. **Machine Learning Approach: Isolation Forest**
 
-## 📊 Results
+**Notebook**: `notebooks/appliances_anomaly_detection_isolationforest.ipynb`
 
-The project generates various visualizations and statistics to illustrate the detected anomalies and their
-characteristics. Key outputs include:
+- **Technique**: Ensemble-based anomaly detection using random forest isolation
+- **Features**: Multivariate analysis using `['Appliances', 'T_out', 'lights', 'RH_1']`
+- **Contamination Rate**: Configurable (default: 5%)
+- **Advantages**: Handles multivariate patterns, robust to outliers
+- **Best for**: Identifying complex anomalous patterns in feature space
 
-* Time-series plots highlighting anomalous periods.
-* Scatter plots showing anomalies in feature space.
-* Histograms comparing feature distributions between normal and anomalous data.
-* Bar charts illustrating hourly and daily anomaly rates.
-* Elbow curves and cluster visualizations for anomaly clustering.
+### 3. **Deep Learning Approach: LSTM Autoencoder**
 
-Example of detected anomalies:
+**Notebook**: `notebooks/appliances_anomaly_detection_tensorflow.ipynb`
+
+- **Technique**: Deep learning with LSTM autoencoder for sequence reconstruction
+- **Architecture**:
+   - Encoder: Multi-layer LSTM with dropout
+   - Decoder: Symmetric reconstruction layers
+   - Window size: 24 hours (configurable)
+- **Threshold**: Multiple options (95th/99th percentile, statistical)
+- **Advantages**: Captures temporal dependencies and seasonal patterns
+- **Best for**: Time-series pattern anomalies and sequence-based detection
+
+## 🔄 Preprocessing Pipeline
+
+All approaches share a common preprocessing pipeline:
+
+1. **Data Loading**: Parse time-series data with proper datetime indexing
+2. **Missing Value Handling**: Remove incomplete records using `dropna()`
+3. **Feature Engineering**: Extract temporal features (hour, day_of_week, month)
+4. **Normalization**: Apply `MinMaxScaler` for neural networks and distance-based models
+5. **Temporal Features**: Generate hour, day-of-week, and monthly patterns
+
+## 📈 Analysis Components
+
+Each notebook includes comprehensive analysis:
+
+### **Exploratory Data Analysis**
+
+- Time-series visualization of energy consumption patterns
+- Distribution analysis and statistical summaries
+- Correlation matrix of environmental factors
+- Hourly and daily usage pattern identification
+
+### **Anomaly Detection & Evaluation**
+
+- Model-specific anomaly identification
+- Multiple threshold comparison (where applicable)
+- Performance metrics and detection statistics
+- Temporal pattern analysis of detected anomalies
+
+### **In-depth Anomaly Characterization**
+
+- **Temporal Analysis**: Hourly, daily, and seasonal anomaly patterns
+- **Feature Distribution Comparison**: Normal vs. anomalous data characteristics
+- **K-Means Clustering**: Grouping anomalies into distinct types
+- **Environmental Correlation**: Relationship with weather and usage patterns
+
+## 📊 Results & Visualizations
+
+The project generates comprehensive visualizations for each approach:
+
+### Statistical (Z-Score)
+
+- Time-series plots with Z-score thresholds
+- Distribution analysis of Z-scores
+- Temporal anomaly patterns
+
+### Machine Learning (Isolation Forest)
+
+- Time-series anomaly highlighting
+- Feature space scatter plots
+- Hourly and daily anomaly distributions
+- Environmental factor correlations
+
+### Deep Learning (LSTM Autoencoder)
+
+- Reconstruction error analysis
+- Training history visualization
+- Multi-threshold comparison
+- Temporal pattern analysis
+
+Example outputs:
 
 ![Isolation Forest Anomalies](images/anomalies_detected_by_isolation_forest.png)
 
-Example of LSTM Autoencoder anomaly detection:
+![LSTM Autoencoder Analysis](images/time_series_with_anomalies_&_reconstruction_error.png)
 
-![LSTM Autoencoder Anomalies](images/time_series_with_anomalies_&_reconstruction_error.png)
+## 📁 Project Structure
 
-## Project Structure
+```
+Energy-Consumption-Anomaly-Detection/
+├── data/
+│   ├── processed_data.csv              # Main dataset
+│   └── anomaly_details.csv             # Detected anomaly details
+├── notebooks/
+│   ├── appliances_anomaly_detection_zscore.ipynb         # Statistical approach
+│   ├── appliances_anomaly_detection_isolationforest.ipynb # ML approach
+│   └── appliances_anomaly_detection_tensorflow.ipynb      # Deep learning approach
+├── images/
+│   ├── anomalies_detected_by_isolation_forest.png
+│   ├── time_series_with_anomalies_&_reconstruction_error.png
+│   └── *.png                           # Generated visualizations
+├── scripts/
+│   └── app.py                          # Streamlit dashboard
+├── requirements.txt                     # Project dependencies
+├── .gitignore                          # Git ignore file
+└── README.md                           # Project documentation
+```
 
-├── data \
-│ └── processed_data.csv \
-├── images \
-│ └── *.png \
-├── notebooks \
-│ └── ipynb \
-├── scripts \
-│ └── app.py # Streamlit application for interactive visualization \
-├── requirements.txt # Project dependencies \
-└── README.md # Project overview and documentation
+## 🚀 How to Run
 
-## How to Run
-
-To set up and run this project:
-
+### Prerequisites
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/YassinEzaouibi/Energy-Consumption-Anomaly-Detection
    cd Energy-Consumption-Anomaly-Detection
    ```
+
 2. **Create and activate a virtual environment**:
    ```bash
    virtualenv venv
    source venv/bin/activate  # On Windows: `venv\Scripts\activate`
    ```
+
 3. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-4. **Run the Jupyter Notebook**:
-   To execute the anomaly detection and analysis:
-   ```bash
-   jupyter notebook appliances_anomaly_detection.ipynb
-   ```
-   The notebook will regenerate images in the `images/` directory only if `processed_data.csv` has changed since the
-   last run.
 
-5. **(Optional) Run the Streamlit application**:
-   If `app.py` is part of your project, you can run it using:
-   ```bash
-   streamlit run app.py
-   ```
+### Running Individual Approaches
 
-## Requirements
+Choose the approach you want to explore:
 
-The project dependencies are listed in `requirements.txt`:
+#### 1. Statistical Z-Score Method
 
-* `pandas~=2.2.2`
-* `matplotlib~=3.9.2`
-* `numpy~=2.1.1`
-* `scikit-learn~=1.5.1`
-* `statsmodels~=0.14.4`
-* `streamlit~=1.45.1`
-* `tensorflow~=2.19.0`
+```bash
+jupyter notebook notebooks/appliances_anomaly_detection_zscore.ipynb
+```
 
-## 🚀 Future Work
+- **Quick setup**: Minimal computational requirements
+- **Runtime**: ~2-3 minutes
+- **Best for**: Initial exploration and baseline comparison
 
-Potential enhancements and future directions for this project include:
+#### 2. Isolation Forest (Machine Learning)
 
-* **Real-time Detection**: Integrating with frameworks like `River` for online anomaly detection as new data arrives.
-* **Multivariate LSTM Autoencoder**: Extending the LSTM autoencoder to learn patterns from multiple features
-  simultaneously.
-* **Explainable AI (XAI)**: Implementing techniques to understand *why* a particular data point was flagged as an
-  anomaly.
-* **Deployment**: Further development of the Streamlit application (`app.py`) for a more interactive and comprehensive
-  anomaly monitoring dashboard.
-* **Hyperparameter Tuning**: More rigorous tuning of model hyperparameters for optimal performance.
+```bash
+jupyter notebook notebooks/appliances_anomaly_detection_isolationforest.ipynb
+```
+
+- **Moderate setup**: Standard machine learning requirements
+- **Runtime**: ~5-10 minutes
+- **Best for**: Multivariate anomaly analysis
+
+#### 3. LSTM Autoencoder (Deep Learning)
+
+```bash
+jupyter notebook notebooks/appliances_anomaly_detection_tensorflow.ipynb
+```
+
+- **Advanced setup**: TensorFlow/GPU recommended
+- **Runtime**: ~15-30 minutes (depending on hardware)
+- **Best for**: Temporal pattern analysis and advanced modeling
+
+### Optional: Interactive Dashboard
+
+```bash
+streamlit run scripts/app.py
+```
+
+## 🔧 Requirements
+
+The project dependencies are optimized for all three approaches:
+
+```txt
+pandas~=2.2.2          # Data manipulation
+matplotlib~=3.9.2      # Basic plotting
+numpy~=2.1.1           # Numerical computing
+scikit-learn~=1.5.1    # Machine learning algorithms
+seaborn~=3.0.2         # Statistical visualizations
+statsmodels~=0.14.4    # Statistical analysis
+tensorflow~=2.19.0     # Deep learning framework
+plotly                 # Interactive visualizations
+streamlit~=1.45.1      # Dashboard framework
+```
+
+## 🎯 Model Comparison
+
+| Approach             | Complexity | Interpretability | Temporal Awareness | Multivariate | Computational Cost |
+|----------------------|------------|------------------|--------------------|--------------|--------------------|
+| **Z-Score**          | Low        | High             | No                 | No           | Very Low           |
+| **Isolation Forest** | Medium     | Medium           | No                 | Yes          | Low                |
+| **LSTM Autoencoder** | High       | Low              | Yes                | Configurable | High               |
+
+## 📋 Output Files
+
+Each approach generates specific output files:
+
+### Z-Score Method
+
+- Anomaly statistics and temporal analysis
+- Z-score distribution plots
+
+### Isolation Forest
+
+- `../data/anomaly_details.csv`: Detailed anomaly information
+- Feature distribution comparisons
+- Cluster analysis results
+
+### LSTM Autoencoder
+
+- `lstm_autoencoder_model.h5`: Trained model
+- `lstm_anomaly_results.csv`: Complete results
+- `detailed_lstm_anomalies.csv`: Anomaly-specific details
+- `lstm_model_config.json`: Model configuration and metrics
+
+## 🔮 Future Work
+
+### Short-term Enhancements
+
+- **Ensemble Methods**: Combine predictions from all three approaches
+- **Hyperparameter Optimization**: Automated tuning for each model
+- **Real-time Processing**: Streaming anomaly detection capabilities
+
+### Advanced Features
+
+- **Explainable AI (XAI)**: SHAP/LIME integration for model interpretability
+- **Multivariate LSTM**: Incorporate all sensor features simultaneously
+- **Online Learning**: Adaptive models for evolving patterns
+- **Seasonal Decomposition**: Enhanced temporal pattern recognition
+
+### Deployment & Integration
+
+- **Docker Containerization**: Easy deployment and scaling
+- **REST API**: Service-oriented architecture
+- **Real-time Dashboard**: Live monitoring capabilities
+- **Alert System**: Automated anomaly notifications
+
+## 👥 Contributors
+
+- **Mouncef Filali Bouami** - Supervisor
+- **Yassin Ezaouibi** - Project Lead & Deep Learning Implementation
+- **Hamza El Moukadam** - Machine Learning & Statistical Analysis
+- **Mohamed Essalhi** - Data Analysis & Visualization
