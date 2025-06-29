@@ -255,7 +255,6 @@ matplotlib~=3.9.2      # Basic plotting
 numpy~=2.1.1           # Numerical computing
 scikit-learn~=1.5.1    # Machine learning algorithms
 seaborn~=3.0.2         # Statistical visualizations
-statsmodels~=0.14.4    # Statistical analysis
 tensorflow~=2.19.0     # Deep learning framework
 plotly                 # Interactive visualizations
 streamlit~=1.45.1      # Dashboard framework
